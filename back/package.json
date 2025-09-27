@@ -1,0 +1,27 @@
+{
+  "name": "pay-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.2",
+    "morgan": "^1.10.1",
+    "razorpay": "^2.9.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "description": "## Setup 1. Copy `.env.example` to `.env` and fill your Razorpay credentials:    - `RAZORPAY_KEY_ID`    - `RAZORPAY_KEY_SECRET`    - `WEBHOOK_SECRET`    - `FRONTEND_URL` (e.g., http://localhost:3000)",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

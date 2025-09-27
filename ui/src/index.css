@@ -1,0 +1,484 @@
+/* =========================
+Full CSS for PaymentPage
+========================= */
+
+/* Background container */
+.page-background {
+min-height: 100vh;
+width: 100%;
+background: #030638 url('/public/assets/images/backbanner.png') no-repeat center center;
+background-size: cover;
+font-family: "'Segoe UI', sans-serif";
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+overflow: hidden;
+position: relative;
+}
+
+/* Alert Styles */
+.slide-alert {
+position: fixed;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+max-width: 90%;
+width: 400px;
+z-index: 1050;
+padding: 10px 20px;
+border-radius: 8px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+font-size: 1rem;
+font-weight: 600;
+opacity: 0;
+animation: slideInOut 4s ease forwards;
+}
+
+@keyframes slideInOut {
+0% { opacity: 0; transform: translateY(-20px); }
+10% { opacity: 1; transform: translateY(0); }
+80% { opacity: 1; transform: translateY(0); }
+100% { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Payment Card (Bottom) */
+.payment-card {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;
+box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.5);
+padding: 25px 20px;
+background: rgba(255, 255, 255, 0.08);
+backdrop-filter: blur(10px);
+text-align: center;
+width: 100%;
+max-width: 100%;
+margin: 0 auto;
+z-index: 1;
+}
+
+/* Header inside card */
+.payment-header {
+margin-bottom: 10px;
+font-weight: bold;
+font-size: 1.4rem;
+color: #00d9ff;
+}
+
+/* Description Text */
+.payment-description {
+font-size: 1rem;
+color: #dcdcdc;
+margin-bottom: 15px;
+}
+
+/* Input Group */
+.payment-input-group {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 15px;
+flex-wrap: wrap;
+}
+
+/* Custom Input */
+.custom-input {
+border-radius: 10px;
+padding: 12px;
+border: 2px solid #0d6efd;
+background: #1a1a3d;
+color: white;
+margin-right: 10px;
+flex: 1;
+max-width: 280px;
+}
+.custom-input::placeholder {
+color: #ccc;
+opacity: 0.9;
+}
+.custom-input[type='number']::-webkit-inner-spin-button,
+.custom-input[type='number']::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-input[type='number'] {
+-moz-appearance: textfield;
+}
+
+/* Pay Button */
+.pay-btn {
+background: linear-gradient(90deg, #0d6efd, #6f42c1);
+border: none;
+border-radius: 10px;
+padding: 12px 24px;
+min-width: 140px;
+font-weight: bold;
+color: white;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+.pay-btn:hover {
+opacity: 0.9;
+}
+.pay-btn:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+}
+
+/* Security Note */
+.security-note {
+margin-top: 15px;
+font-size: 0.9rem;
+color: #aaa;
+}
+
+/* =========================
+Responsive Media Queries
+========================= */
+
+/* Phones (max-width: 576px) */
+@media (max-width: 576px) {
+/* Banner full visible, no cropping */
+.page-background {
+background-size: 100% 100%;
+background-position: top center;
+background-repeat: no-repeat;
+background-color: #030638; /* fallback bg behind banner */
+}
+
+.payment-header { font-size: 1.2rem; }
+.custom-input { font-size: 1.1rem; padding: 10px; min-width: 100px; }
+.pay-btn { font-size: 1.1rem; padding: 10px 20px; }
+.payment-input-group { flex-direction: column; }
+.custom-input { width: 100% !important; margin-bottom: 10px; }
+.pay-btn { width: 100% !important; }
+}
+
+/* Tablets (577px - 991px) */
+@media (min-width: 577px) and (max-width: 991px) {
+/* Switch back to cover for good look */
+.page-background {
+background-size: cover;
+background-position: center center;
+}
+
+.payment-header { font-size: 1.5rem; }
+.custom-input { font-size: 1.2rem; padding: 12px; min-width: 130px; }
+.pay-btn { font-size: 1.2rem; padding: 12px 24px; }
+}
+
+/* Laptops (992px - 1439px) */
+@media (min-width: 992px) and (max-width: 1439px) {
+.payment-header { font-size: 1.6rem; }
+.custom-input { font-size: 1.3rem; padding: 14px; min-width: 160px; }
+.pay-btn { font-size: 1.3rem; padding: 14px 28px; }
+}
+
+/* Desktops & Larger (1440px and up) */
+@media (min-width: 1440px) {
+.payment-header { font-size: 2rem; }
+.custom-input { font-size: 1.4rem; padding: 16px; min-width: 180px; }
+.pay-btn { font-size: 1.4rem; padding: 16px 30px; }
+}
+/* =========================
+Full CSS for PaymentPage
+========================= */
+
+
+
+
+
+/* =========================
+   Full Responsive Styles for SuccessPage
+   ========================= */
+
+.su-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('/public/assets/images/succesban.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+}
+
+/* Main card styling */
+.su-success-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header styling */
+.su-header {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Thank you message */
+.su-thank-you {
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  line-height: 1.5;
+  margin-bottom: 25px;
+  max-width: 400px;
+  text-align: center;
+  color: #333;
+}
+
+/* SVG checkmark container */
+.su-checkmark-container {
+  margin: 20px 0;
+}
+
+.su-checkmark-svg {
+  width: clamp(80px, 10vw, 150px);
+  height: clamp(80px, 10vw, 150px);
+}
+
+/* Countdown message styling */
+.su-countdown {
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  margin-top: 10px;
+  padding: 0 10px;
+  color: #555;
+  text-align: center;
+}
+
+/* Additional info section */
+.su-additional-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.su-info-text {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+  max-width: 350px;
+}
+
+/* Redirect button styles */
+.su-redirect-btn {
+  padding: 10px 20px;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  border-radius: 8px;
+  border: none;
+  background-color: #28a745;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.su-redirect-btn:hover {
+  opacity: 0.9;
+}
+
+/* Footer text */
+.su-footer-text {
+  margin-top: 20px;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  color: #555;
+  text-align: center;
+}
+
+/* =========================
+   Media Queries for Responsiveness
+   ========================= */
+
+/* Extra small devices: max-width 576px */
+@media (max-width: 576px) {
+  .su-success-card {
+    max-width: 90% !important;
+    padding: 20px !important;
+    border-radius: 15px !important;
+  }
+  .su-header {
+    font-size: 1.5rem !important;
+  }
+  .su-thank-you {
+    font-size: 1rem !important;
+  }
+  .su-checkmark-svg {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .su-countdown {
+    font-size: 0.9rem !important;
+  }
+  .su-redirect-btn {
+    width: 100% !important;
+    font-size: 0.9rem !important;
+    padding: 10px !important;
+  }
+  .su-footer-text {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Small to medium devices (577px - 767px) */
+@media (min-width: 577px) and (max-width: 767px) {
+  .su-success-card {
+    max-width: 85% !important;
+    padding: 25px !important;
+    border-radius: 17px !important;
+  }
+  .su-header {
+    font-size: 2rem !important;
+  }
+  .su-thank-you {
+    font-size: 1.1rem !important;
+  }
+  .su-checkmark-svg {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .su-countdown {
+    font-size: 1rem !important;
+  }
+  .su-redirect-btn {
+    min-width: 180px !important;
+  }
+  .su-footer-text {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Medium to large devices (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .su-success-card {
+    max-width: 70% !important;
+    padding: 30px !important;
+    border-radius: 20px !important;
+  }
+  .su-header {
+    font-size: 2.5rem !important;
+  }
+  .su-thank-you {
+    font-size: 1.2rem !important;
+  }
+  .su-checkmark-svg {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .su-countdown {
+    font-size: 1.1rem !important;
+  }
+  .su-redirect-btn {
+    min-width: 200px !important;
+  }
+  .su-footer-text {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Large devices (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .su-success-card {
+    max-width: 60% !important;
+    padding: 35px !important;
+    border-radius: 22px !important;
+  }
+  .su-header {
+    font-size: 3rem !important;
+  }
+  .su-thank-you {
+    font-size: 1.3rem !important;
+  }
+  .su-checkmark-svg {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  .su-countdown {
+    font-size: 1.2rem !important;
+  }
+  .su-redirect-btn {
+    min-width: 220px !important;
+  }
+  .su-footer-text {
+    font-size: 1rem !important;
+  }
+}
+
+/* Extra large screens (1200px and above) */
+@media (min-width: 1200px) {
+  .su-success-card {
+    max-width: 50% !important;
+    padding: 40px !important;
+    border-radius: 30px !important;
+  }
+  .su-header {
+    font-size: 3.5rem !important;
+  }
+  .su-thank-you {
+    font-size: 1.4rem !important;
+  }
+  .su-checkmark-svg {
+    width: 180px !important;
+    height: 180px !important;
+  }
+  .su-countdown {
+    font-size: 1.3rem !important;
+  }
+  .su-redirect-btn {
+    min-width: 250px !important;
+  }
+  .su-footer-text {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* For very large screens (>1800px) */
+@media (min-width: 1800px) {
+  .su-success-card {
+    max-width: 40% !important;
+    padding: 50px !important;
+    border-radius: 35px !important;
+  }
+  .su-header {
+    font-size: 4rem !important;
+  }
+  .su-thank-you {
+    font-size: 1.6rem !important;
+  }
+  .su-checkmark-svg {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .su-countdown {
+    font-size: 1.5rem !important;
+  }
+  .su-redirect-btn {
+    min-width: 300px !important;
+  }
+  .su-footer-text {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* =========================
+   Full Responsive Styles for SuccessPage
+   ========================= */
