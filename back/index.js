@@ -1,5 +1,3 @@
-```js
-// index.js
 const express = require("express");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
@@ -16,7 +14,7 @@ const app = express();
 
 // ✅ Allow all origins (any frontend can access)
 app.use(cors());
-app.use(express.json()); // parse JSON bodies
+app.use(express.json()); // For parsing JSON bodies
 
 // Create Razorpay instance
 const razorpay = new Razorpay({
@@ -32,20 +30,19 @@ app.post("/api/create-order", async (req, res) => {
       return res.status(400).json({ error: "Invalid amount" });
     }
 
-    // amount expected from frontend in rupees (e.g., 100 => ₹100)
     const amountInPaise = Math.round(Number(amount) * 100);
 
     const options = {
       amount: amountInPaise,
       currency: "INR",
       receipt: `receipt_order_${Date.now()}`,
-      payment_capture: 1, // auto capture
+      payment_capture: 1,
     };
 
     const order = await razorpay.orders.create(options);
 
     // Save a record with status 'created'
-    const paymentRecord = await Payment.create({
+    await Payment.create({
       orderId: order.id,
       amount: amountInPaise,
       status: "created",
@@ -56,7 +53,7 @@ app.post("/api/create-order", async (req, res) => {
       id: order.id,
       currency: order.currency,
       amount: order.amount,
-      razorpayKey: process.env.RAZORPAY_KEY_ID, // frontend needs this
+      razorpayKey: process.env.RAZORPAY_KEY_ID,
       receipt: order.receipt,
     });
   } catch (err) {
@@ -68,8 +65,7 @@ app.post("/api/create-order", async (req, res) => {
 // 2) Verify payment
 app.post("/api/verify-payment", async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-      req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
     const generated_signature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -78,7 +74,7 @@ app.post("/api/verify-payment", async (req, res) => {
 
     const isValid = generated_signature === razorpay_signature;
 
-    const paymentRecord = await Payment.findOne({ orderId: razorpay_order_id });
+    let paymentRecord = await Payment.findOne({ orderId: razorpay_order_id });
 
     if (!paymentRecord) {
       await Payment.create({
@@ -166,4 +162,3 @@ app.get("/", (req, res) => res.send("backend is running"));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-```
