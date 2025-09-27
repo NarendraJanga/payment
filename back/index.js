@@ -1,3 +1,4 @@
+```js
 // index.js
 const express = require("express");
 const Razorpay = require("razorpay");
@@ -13,11 +14,8 @@ const Payment = require("./models/Payment");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-  })
-);
+// ✅ Allow all origins (any frontend can access)
+app.use(cors());
 app.use(express.json()); // parse JSON bodies
 
 // Create Razorpay instance
@@ -67,16 +65,8 @@ app.post("/api/create-order", async (req, res) => {
   }
 });
 
-// 2) Verify payment (frontend will call this after payment success)
+// 2) Verify payment
 app.post("/api/verify-payment", async (req, res) => {
-  /*
-    Expecting body:
-    {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature
-    }
-  */
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
@@ -91,7 +81,6 @@ app.post("/api/verify-payment", async (req, res) => {
     const paymentRecord = await Payment.findOne({ orderId: razorpay_order_id });
 
     if (!paymentRecord) {
-      // optionally create record
       await Payment.create({
         orderId: razorpay_order_id,
         paymentId: razorpay_payment_id,
@@ -116,8 +105,7 @@ app.post("/api/verify-payment", async (req, res) => {
   }
 });
 
-// 3) Webhook endpoint (configure a webhook URL in Razorpay dashboard)
-// For webhook we need the raw body to compute HMAC
+// 3) Webhook endpoint
 app.post(
   "/api/webhook",
   bodyParser.raw({ type: "application/json" }),
@@ -134,7 +122,6 @@ app.post(
         const event = JSON.parse(req.body.toString());
         console.log("Webhook verified. Event:", event.event);
 
-        // Example: update payment record on payment.captured event
         if (
           event.event === "payment.captured" ||
           event.event === "payment.authorized"
@@ -175,7 +162,8 @@ app.post(
 );
 
 // simple health
-app.get("/", (req, res) => res.send("Razorpay backend up"));
+app.get("/", (req, res) => res.send("backend is running"));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+```
