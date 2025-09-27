@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// Removed useNavigate since we won't navigate after success
+// import { useNavigate } from "react-router-dom";
 
 // Load Razorpay script
 const loadRazorpayScript = () => {
@@ -18,7 +19,7 @@ export default function PaymentPage() {
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Not used now
 
   const showMessage = (text, type = "info") => {
     setMessage({ text, type });
@@ -45,7 +46,7 @@ export default function PaymentPage() {
     let orderData;
     try {
       const { data } = await axios.post(
-        "https://payment-secure.onrender.com/api/create-order",
+        "https://payment-back22.onrender.com/api/create-order",
         { amount }
       );
       orderData = data; // contains order_id, amount, currency, razorpayKey
@@ -66,21 +67,22 @@ export default function PaymentPage() {
       name: "Freelance Services",
       description: "Secure Payment for Web Development",
       order_id,
-      // Open Razorpay immediately
-      modal: {
-        // Optional: prevent closing on outside click if desired
-        // escape: false,
-        // backdrop: true,
+      theme: { color: "#0d6efd" },
+      prefill: {
+        name: "Client",
+        email: "client@example.com",
+        contact: "9876543210",
       },
       handler: async (response) => {
         // Verify payment after success
         try {
           const verify = await axios.post(
-            "https://payment-secure.onrender.com/api/verify-payment",
+            "https://payment-back22.onrender.com/api/verify-payment",
             response
           );
           if (verify.data.ok) {
-            navigate("/success");
+            // Removed navigation, show success message instead
+            showMessage("✅ Payment successful!", "success");
           } else {
             showMessage("⚠️ Payment verification failed.", "danger");
           }
@@ -89,15 +91,9 @@ export default function PaymentPage() {
           showMessage("❌ Error verifying payment.", "danger");
         }
       },
-      prefill: {
-        name: "Client",
-        email: "client@example.com",
-        contact: "9876543210",
-      },
-      theme: { color: "#0d6efd" },
     };
 
-    // Initialize Razorpay and open immediately
+    // Initialize Razorpay and open
     const rzp = new window.Razorpay(options);
     rzp.on("payment.failed", (res) => {
       console.error("Payment failed", res.error);
@@ -105,8 +101,6 @@ export default function PaymentPage() {
     });
     rzp.open();
 
-    // Note: The order creation is already done before opening Razorpay
-    // The verification is handled in the handler callback
     setLoading(false);
   };
 
