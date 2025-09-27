@@ -45,7 +45,7 @@ export default function PaymentPage() {
     let orderData;
     try {
       const { data } = await axios.post(
-        "https://payment-back-pyq5.onrender.com/api/create-order",
+        "https://payment-back22.onrender.com/api/create-order",
         { amount }
       );
       orderData = data; // contains order_id, amount, currency, razorpayKey
@@ -76,7 +76,7 @@ export default function PaymentPage() {
         // Verify payment after success
         try {
           const verify = await axios.post(
-            "https://payment-back-pyq5.onrender.com/api/verify-payment",
+            "https://payment-back22.onrender.com/api/verify-payment",
             response
           );
           if (verify.data.ok) {
